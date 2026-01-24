@@ -11,6 +11,7 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
+	
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(time.Now().Format(time.RFC3339)))
 	})
