@@ -13,7 +13,7 @@ func main() {
 	}
 	
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("hello demo: " + time.Now().Format(time.RFC3339)))
+		w.Write([]byte("hello 2nd pr: " + time.Now().Format(time.RFC3339)))
 	})
 	http.ListenAndServe(":"+port, nil)
 }
