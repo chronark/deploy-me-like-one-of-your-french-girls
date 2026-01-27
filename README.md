@@ -6,6 +6,3 @@ edit
 4
 6
 asd
-asdadsasdasd
-asdad
-asdads
