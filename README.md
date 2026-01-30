@@ -10,7 +10,3 @@ asd
 asdasdasdasdasd
 asdasd
 asdasdadsasdasd
-asdadasdasd
-asdadsasd
-asdasdasd
-asd
