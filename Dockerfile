@@ -1,10 +1,11 @@
-FROM golang:1.23-alpine AS builder
-WORKDIR /app
-COPY main.go .
-RUN go build -o server main.go
+FROM alpine:latest AS logs
+RUN for i in $(seq 1 10); do \
+      echo "[$(date -Iseconds)] log_level=$(shuf -n1 -e INFO WARN ERROR DEBUG) msg=\"$(head -c 32 /dev/urandom | base64 | tr -d '=/+')\""; \
+    done
 
-FROM alpine:latest
+FROM golang:latest
+
 WORKDIR /app
-COPY --from=builder /app/server .
-EXPOSE 8080
-CMD ["./server"]
+COPY . .
+
+CMD ["go", "run", "."]
