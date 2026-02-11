@@ -15,7 +15,7 @@ func main() {
 	
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		log.Println("received request")
-		w.Write([]byte("deployed through redeploy: " + time.Now().Format(time.RFC3339)))
+		w.Write([]byte("deployed through redeploy2: " + time.Now().Format(time.RFC3339)))
 	})
 	http.ListenAndServe(":"+port, nil)
 }
