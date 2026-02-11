@@ -17,5 +17,11 @@ func main() {
 		log.Println("received request")
 		w.Write([]byte("deployed through redeploy2: " + time.Now().Format(time.RFC3339)))
 	})
+
+	http.HandleFunc("/env", func(w http.ResponseWriter, r *http.Request) {
+		
+		w.Write([]byte(os.Environ()))
+	})
+	
 	http.ListenAndServe(":"+port, nil)
 }
