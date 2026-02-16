@@ -11,13 +11,13 @@ import (
 func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "8080"
+		port = "3000"
 	} 
 	
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		log.Println("received request")
-		w.Write([]byte("deployed through redeploy2: " + time.Now().Format(time.RFC3339)))
+		w.Write([]byte("deployed with zeitwork: " + time.Now().Format(time.RFC3339)))
 	})
 
 	http.HandleFunc("/env", func(w http.ResponseWriter, r *http.Request) {
