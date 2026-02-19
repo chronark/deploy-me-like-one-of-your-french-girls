@@ -1,9 +1,9 @@
-FROM golang:1.23-alpine AS builder
+FROM golang:latest AS builder
 WORKDIR /app
 COPY main.go .
 RUN go build -o server main.go
 
-FROM alpine:latest
+FROM golang:latest
 WORKDIR /app
 COPY --from=builder /app/server .
 EXPOSE 3000
