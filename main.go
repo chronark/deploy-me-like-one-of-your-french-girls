@@ -17,7 +17,7 @@ func main() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		log.Println("received reques2t ")
-		w.Write([]byte("pls do not fuck with the region suffixes: " + time.Now().Format(time.RFC3339)))
+		w.Write([]byte("behind auth: " + time.Now().Format(time.RFC3339)))
 	})
 
 	http.HandleFunc("/env", func(w http.ResponseWriter, r *http.Request) {
