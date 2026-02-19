@@ -17,7 +17,7 @@ func main() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		log.Println("received reques2t ")
-		w.Write([]byte("pls deploy on unkey: " + time.Now().Format(time.RFC3339)))
+		w.Write([]byte("pls dep2loy on unkey: " + time.Now().Format(time.RFC3339)))
 	})
 
 	http.HandleFunc("/env", func(w http.ResponseWriter, r *http.Request) {
