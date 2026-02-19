@@ -16,7 +16,7 @@ func main() {
 	
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		log.Println("received request")
+		log.Println("received request ")
 		w.Write([]byte("pls deploy on unkey: " + time.Now().Format(time.RFC3339)))
 	})
 
