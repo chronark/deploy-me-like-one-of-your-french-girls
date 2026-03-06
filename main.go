@@ -16,7 +16,7 @@ func main() {
 	
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		log.Println("received reques2t ")
+		log.Println("received rseques2t ")
 		w.Write([]byte("hello new states " + time.Now().Format(time.RFC3339)))
 	})
 
