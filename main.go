@@ -17,7 +17,7 @@ func main() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		log.Println("received rseques2t ")
-		w.Write([]byte("hello 333 I haate regions!!! " + "host="+r.URL.Host + time.Now().Format(time.RFC3339)))
+		w.Write([]byte("hello 444 I hate regions!!! " + "host="+r.URL.Host + time.Now().Format(time.RFC3339)))
 	})
 
 	http.HandleFunc("/env", func(w http.ResponseWriter, r *http.Request) {
