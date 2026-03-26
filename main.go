@@ -23,9 +23,9 @@ func main() {
 	})
 	    http.HandleFunc("/compute", func(w http.ResponseWriter, r *http.Request) {
                 result := 0.0
-                for i := 0; i < 10_000; i++ {
-                        for j := 0; j < 10_000; j++ {
-                                for k := 0; k < 100; k++ {
+                for i := 0; i < 1_000_000; i++ {
+                        for j := 0; j < 1_000_000; j++ {
+                                for k := 0; k < 1_000_000; k++ {
                                         result += math.Sqrt(float64(i*j + k + 1))
                                 }
                         }
