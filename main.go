@@ -19,6 +19,14 @@ func main() {
 		log.Println("received rseques2t ")
 		w.Write([]byte("hello 44222 I hate regions!!! did flo break krane? " + "host="+r.URL.Host + time.Now().Format(time.RFC3339)))
 	})
+	http.HandleFunc("/compute", func(w http.ResponseWriter, r *http.Request) {
+		result := 0.0
+		for i := 0; i < 10_000_000; i++ {
+			result += math.Sqrt(float64(i)) * math.Log(float64(i+1))
+		}
+		fmt.Fprintf(w, "result: %f\n", result)
+	})
+
 
 
 
