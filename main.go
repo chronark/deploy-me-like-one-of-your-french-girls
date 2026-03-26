@@ -65,5 +65,8 @@ func main() {
 		w.Write(b)
 	})
 
-	http.ListenAndServe(":"+port, nil)
+	log.Printf("listening on port %s", port)
+	if err := http.ListenAndServe(":"+port, nil); err != nil {
+		panic(err)
+	}
 }
