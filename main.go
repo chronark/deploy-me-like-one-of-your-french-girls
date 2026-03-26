@@ -26,9 +26,9 @@ func main() {
                 for i := 0; i < 1_000; i++ {
 					log.Printf("i=%d",i)
                         for j := 0; j < 1_000; j++ {
-                                for k := 0; k < 1_000; k++ {
-                                        result += math.Sqrt(float64(i*j + k + 1))
-                                }
+                               
+                                        result += math.Sqrt(float64(i*j + 1))
+                                
                         }
                 }
                 fmt.Fprintf(w, "result: %f\n", result)
