@@ -62,6 +62,11 @@ func main() {
 		log.Println( r.URL.Path)
 		w.Write([]byte("hello from /v1/def"))
 	})
+
+	http.HandlerFunc("/region", func(w http.ResponseWriter, r *http.Request) {
+    w.Write([]byte(os.Getenv("UNKEY_REGION"))
+		
+	}
 	http.HandleFunc("/env", func(w http.ResponseWriter, r *http.Request) {
 
 		b, _ := json.Marshal(os.Environ())
