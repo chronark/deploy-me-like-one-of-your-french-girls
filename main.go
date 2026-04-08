@@ -64,7 +64,7 @@ func main() {
 	})
 
 	http.HandlerFunc("/region", func(w http.ResponseWriter, r *http.Request) {
-    w.Write([]byte(os.Getenv("UNKEY_REGION"))
+    w.Write([]byte(os.Getenv("UNKEY_REGION")))
 		
 	})
 	http.HandleFunc("/env", func(w http.ResponseWriter, r *http.Request) {
