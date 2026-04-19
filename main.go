@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"time"
+	 "io"
 )
 
 func main() {
@@ -44,6 +45,27 @@ func main() {
 
 		w.Write(b)
 	})
+	http.HandleFunc("/json", func(w http.ResponseWriter, r *http.Request) {
+
+        var client = &http.Client{Timeout: 10 * time.Second}
+        req, err := http.NewRequestWithContext(r.Context(), http.MethodGet, "https://jsonplaceholder.typicode.com/todos/1", nil)
+        if err != nil {
+                http.Error(w, err.Error(), http.StatusInternalServerError)
+                return
+        }
+
+        resp, err := client.Do(req)
+        if err != nil {
+                http.Error(w, err.Error(), http.StatusBadGateway)
+                return
+        }
+        defer func() { _ = resp.Body.Close() }()
+
+        w.Header().Set("Content-Type", "application/json; charset=utf-8")
+        w.WriteHeader(resp.StatusCode)
+        _, _ = io.Copy(w, resp.Body)
+}
+	
 
 	http.HandleFunc("/v1/abc", func(w http.ResponseWriter, r *http.Request) {
 		log.Println(r.URL.Path)
