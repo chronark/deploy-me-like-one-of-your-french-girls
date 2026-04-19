@@ -64,7 +64,7 @@ func main() {
         w.Header().Set("Content-Type", "application/json; charset=utf-8")
         w.WriteHeader(resp.StatusCode)
         _, _ = io.Copy(w, resp.Body)
-}
+})
 	
 
 	http.HandleFunc("/v1/abc", func(w http.ResponseWriter, r *http.Request) {
