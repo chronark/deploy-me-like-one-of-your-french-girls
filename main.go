@@ -30,7 +30,8 @@ func main() {
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
-		fmt.Print(string(b))
+		fmt.Println("json:")
+		fmt.Println(string(b))
 		w.Write([]byte("I logged stuff"))
 	})
 
