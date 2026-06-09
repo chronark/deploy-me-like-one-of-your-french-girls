@@ -3,12 +3,12 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"math"
 	"net/http"
 	"os"
 	"time"
-	 "io"
 )
 
 func main() {
@@ -16,6 +16,23 @@ func main() {
 	if port == "" {
 		port = "3000"
 	}
+
+	http.HandleFunc("/log", func(w http.ResponseWriter, r *http.Request) {
+		m := map[string]any{}
+		for k, v := range r.Header {
+			m[k] = v[0]
+		}
+		m["request_id"] = "abc"
+
+		b, err := json.Marshal(m)
+		if err != nil {
+			log.Println("error marshaling headers: ", err)
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+		fmt.Print(string(b))
+		w.Write([]byte("I logged stuff"))
+	})
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		log.Println("received rseques2t ")
@@ -26,16 +43,13 @@ func main() {
 		for i := 0; i < 1_000; i++ {
 			log.Printf("i=%d", i)
 			for j := 0; j < 1_000; j++ {
-
 				result += math.Sqrt(float64(i*j + 1))
-
 			}
 		}
 		fmt.Fprintf(w, "result: %f\n", result)
 	})
 
 	http.HandleFunc("/v1/headers", func(w http.ResponseWriter, r *http.Request) {
-
 		b, err := json.Marshal(r.Header)
 		if err != nil {
 			log.Println("error marshaling headers: ", err)
@@ -46,26 +60,24 @@ func main() {
 		w.Write(b)
 	})
 	http.HandleFunc("/json", func(w http.ResponseWriter, r *http.Request) {
+		client := &http.Client{Timeout: 10 * time.Second}
+		req, err := http.NewRequestWithContext(r.Context(), http.MethodGet, "https://jsonplaceholder.typicode.com/todos/1", nil)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 
-        var client = &http.Client{Timeout: 10 * time.Second}
-        req, err := http.NewRequestWithContext(r.Context(), http.MethodGet, "https://jsonplaceholder.typicode.com/todos/1", nil)
-        if err != nil {
-                http.Error(w, err.Error(), http.StatusInternalServerError)
-                return
-        }
+		resp, err := client.Do(req)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusBadGateway)
+			return
+		}
+		defer func() { _ = resp.Body.Close() }()
 
-        resp, err := client.Do(req)
-        if err != nil {
-                http.Error(w, err.Error(), http.StatusBadGateway)
-                return
-        }
-        defer func() { _ = resp.Body.Close() }()
-
-        w.Header().Set("Content-Type", "application/json; charset=utf-8")
-        w.WriteHeader(resp.StatusCode)
-        _, _ = io.Copy(w, resp.Body)
-})
-	
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		w.WriteHeader(resp.StatusCode)
+		_, _ = io.Copy(w, resp.Body)
+	})
 
 	http.HandleFunc("/v1/abc", func(w http.ResponseWriter, r *http.Request) {
 		log.Println(r.URL.Path)
@@ -83,10 +95,8 @@ func main() {
 
 	http.HandleFunc("/region", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(os.Getenv("UNKEY_REGION")))
-
 	})
 	http.HandleFunc("/env", func(w http.ResponseWriter, r *http.Request) {
-
 		b, _ := json.Marshal(os.Environ())
 
 		w.Write(b)
