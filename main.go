@@ -31,7 +31,7 @@ func main() {
 			return
 		}
 		fmt.Println("json:")
-		fmt.Println(string(b))
+		fmt.Println("my coool message " + string(b))
 		w.Write([]byte("I logged stuff"))
 	})
 
