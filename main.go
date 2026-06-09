@@ -18,7 +18,9 @@ func main() {
 	}
 
 	http.HandleFunc("/log", func(w http.ResponseWriter, r *http.Request) {
-		b, err := json.Marshal(r.Header)
+		b, err := json.Marshal(map[string]any{
+			"hello": "world",
+		})
 		if err != nil {
 			log.Println("error marshaling headers: ", err)
 			w.WriteHeader(http.StatusInternalServerError)
