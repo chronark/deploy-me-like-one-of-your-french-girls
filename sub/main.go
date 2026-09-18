@@ -14,5 +14,6 @@ func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("sub" + time.Now().Format(time.RFC3339)))
 	})
+	
 	http.ListenAndServe(":"+port, nil)
 }
