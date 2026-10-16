@@ -33,7 +33,7 @@ func main() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		log.Println("received edited")
-		w.Write([]byte("hello edited " + "host=" + r.URL.Host + time.Now().Format(time.RFC3339)))
+		w.Write([]byte("hello deployed after rolled back " + "host=" + r.URL.Host + time.Now().Format(time.RFC3339)))
 	})
 	http.HandleFunc("/compute", func(w http.ResponseWriter, r *http.Request) {
 		result := 0.0
