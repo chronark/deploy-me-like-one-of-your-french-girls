@@ -32,8 +32,8 @@ func main() {
 	})
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		log.Println("received rseques2t ")
-		w.Write([]byte("hello " + "host=" + r.URL.Host + time.Now().Format(time.RFC3339)))
+		log.Println("received edited")
+		w.Write([]byte("hello edited " + "host=" + r.URL.Host + time.Now().Format(time.RFC3339)))
 	})
 	http.HandleFunc("/compute", func(w http.ResponseWriter, r *http.Request) {
 		result := 0.0
