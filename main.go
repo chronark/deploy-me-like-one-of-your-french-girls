@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "embed"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -10,6 +11,9 @@ import (
 	"os"
 	"time"
 )
+
+//go:embed private/secret.txt
+var submoduleSecret []byte
 
 func main() {
 	port := os.Getenv("PORT")
@@ -97,6 +101,10 @@ func main() {
 		b, _ := json.Marshal(os.Environ())
 
 		w.Write(b)
+	})
+
+	http.HandleFunc("/submodule", func(w http.ResponseWriter, r *http.Request) {
+		w.Write(submoduleSecret)
 	})
 
 	log.Printf("listening on port %s", port)
