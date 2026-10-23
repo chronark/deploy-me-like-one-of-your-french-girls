@@ -3,6 +3,7 @@ WORKDIR /app
 COPY main.go .
 RUN go build -o server main.go
 
+
 FROM ubuntu:latest
 WORKDIR /app
 COPY --from=builder /app/server .
