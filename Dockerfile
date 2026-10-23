@@ -3,7 +3,7 @@ WORKDIR /app
 COPY main.go .
 RUN go build -o server main.go
 
-FROM golang:latest
+FROM ubuntu:latest
 WORKDIR /app
 COPY --from=builder /app/server .
 EXPOSE 3000
