@@ -8,8 +8,8 @@ FROM ubuntu:latest
 WORKDIR /app
 COPY --from=builder /app/server .
 
-RUN sudo apt update
-RUN sudo apt install -y curl nodejs npm
+RUN apt update
+RUN apt install -y curl nodejs npm
 RUN npm install -g @openai/codex
 
 
