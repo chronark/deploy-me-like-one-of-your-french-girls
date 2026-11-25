@@ -35,6 +35,11 @@ func main() {
 		log.Println("received edited")
 		w.Write([]byte("hello deployed after rolled back " + "host=" + r.URL.Host + time.Now().Format(time.RFC3339)))
 	})
+	// Echo the raw query exactly as received, to check what the gateway forwards.
+	http.HandleFunc("/query", func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("query rawQuery=%q", r.URL.RawQuery)
+		fmt.Fprintf(w, "rawQuery=%q principal=%q\n", r.URL.RawQuery, r.Header.Get("X-Unkey-Principal"))
+	})
 	http.HandleFunc("/compute", func(w http.ResponseWriter, r *http.Request) {
 		result := 0.0
 		for i := 0; i < 1_000; i++ {
